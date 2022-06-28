@@ -6,7 +6,7 @@ let computerScore = 0;
 let tieCounter = 0;
 
 let computerSelection = computerPlay();
-let playerSelection = playerPlay();
+let playerSelection;
 
 const PLAYER_WIN = `CONGRATS, you win! you chose ${playerSelection} and the computer chose ${computerSelection}`;
 const COMPUTER_WIN = `You chose ${playerSelection} and the computer chose ${computerSelection}, You LOSE!`;
@@ -14,7 +14,7 @@ const TIE_GAME = ` You both chose ${playerSelection}, it's a TIE!`;
 
 let PLAYER_WON = `You have beat the computer 5 round game of Rock Paper Scissors!`;
 let COMPUTER_WON = `You have lost to the computer in a 5 round game of Rock, Paper, Scissors! `;
-const TIE = `You both have a score of ${playerScore}, it's a TIE!`;
+let TIE = `You both have a score of ${playerScore}, it's a TIE!`;
 
 function computerPlay() {
   let computerChoice = choices[Math.floor(Math.random() * choices.length)];
@@ -37,18 +37,18 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
     playerScore++;
-    return PLAYER_WIN;
+    return ` ${playerSelection} beats ${computerSelection}, YOU WIN!`; //PLAYER_WIN;
   } else if (playerSelection === computerSelection) {
     tieCounter++;
-    return TIE_GAME;
+    return `you both ${playerSelection} chose ${computerSelection}. DRAW!`; //TIE_GAME;
   } else {
     computerScore++;
-    return COMPUTER_WIN;
+    return ` ${playerSelection} loses to ${computerSelection}. YOU LOSE`; //COMPUTER_WIN;
   }
 }
 
 function game() {
-  while (playerScore < winningScore && computerScore < winningScore) {
+  for (let i = 0; i < 5; i++) {
     playerSelection = playerPlay();
     computerSelection = computerPlay();
     console.log(playRound(playerSelection, computerSelection));
@@ -64,7 +64,7 @@ function game() {
   } else if (computerScore > playerScore) {
     return console.log(
       COMPUTER_WON,
-      `Player :${playerScore} to Computer: ${computerScore}, with ${tieCounter} ties`
+      `Player: ${playerScore} to Computer: ${computerScore}, with ${tieCounter} ties`
     );
   } else {
     return console.log(TIE);
