@@ -1,5 +1,21 @@
 const choices = ['rock', 'paper', 'scissors'];
 
+let winningScore = 3;
+let playerScore = 0;
+let computerScore = 0;
+let tieCounter = 0;
+
+let computerSelection = computerPlay();
+let playerSelection = playerPlay();
+
+const PLAYER_WIN = `CONGRATS, you win! you chose ${playerSelection} and the computer chose ${computerSelection}`;
+const COMPUTER_WIN = `You chose ${playerSelection} and the computer chose ${computerSelection}, You LOSE!`;
+const TIE_GAME = ` You both chose ${playerSelection}, it's a TIE!`;
+
+let PLAYER_WON = `You have beat the computer 5 round game of Rock Paper Scissors!`;
+let COMPUTER_WON = `You have lost to the computer in a 5 round game of Rock, Paper, Scissors! `;
+const TIE = `You both have a score of ${playerScore}, it's a TIE!`;
+
 function computerPlay() {
   let computerChoice = choices[Math.floor(Math.random() * choices.length)];
   return computerChoice;
@@ -20,15 +36,39 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === 'paper' && computerSelection === 'rock') ||
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
-    return `You chose ${playerSelection} & the computer chose ${computerSelection}. You win!`;
+    playerScore++;
+    return PLAYER_WIN;
   } else if (playerSelection === computerSelection) {
-    return `you both chose ${playerSelection}, TIE!`;
+    tieCounter++;
+    return TIE_GAME;
   } else {
-    return `You chose ${playerSelection} & the computer chose ${computerSelection}. Computer wins!`;
+    computerScore++;
+    return COMPUTER_WIN;
   }
 }
 
-const playerSelection = playerPlay();
-const computerSelection = computerPlay();
+function game() {
+  while (playerScore < winningScore && computerScore < winningScore) {
+    playerSelection = playerPlay();
+    computerSelection = computerPlay();
+    console.log(playRound(playerSelection, computerSelection));
 
-console.log(playRound(playerSelection, computerSelection));
+    // make it so that after a single round results are stored'
+    console.log(playerScore, computerScore);
+  }
+  if (playerScore > computerScore) {
+    return console.log(
+      PLAYER_WON,
+      `Player: ${playerScore} to Computer: ${computerScore}, with ${tieCounter} ties`
+    );
+  } else if (computerScore > playerScore) {
+    return console.log(
+      COMPUTER_WON,
+      `Player :${playerScore} to Computer: ${computerScore}, with ${tieCounter} ties`
+    );
+  } else {
+    return console.log(TIE);
+  }
+}
+
+game();
