@@ -8,11 +8,11 @@ let tieCounter = 0;
 let computerSelection = computerPlay();
 let playerSelection;
 
-const PLAYER_WIN = `CONGRATS, you win! you chose ${playerSelection} and the computer chose ${computerSelection}`;
-const COMPUTER_WIN = `You chose ${playerSelection} and the computer chose ${computerSelection}, You LOSE!`;
-const TIE_GAME = ` You both chose ${playerSelection}, it's a TIE!`;
+// const PLAYER_WIN = `CONGRATS, you win! you chose ${playerSelection} and the computer chose ${computerSelection}`;
+// const COMPUTER_WIN = `You chose ${playerSelection} and the computer chose ${computerSelection}, You LOSE!`;
+// const TIE_GAME = ` You both chose ${playerSelection}, it's a TIE!`;
 
-let PLAYER_WON = `You have beat the computer 5 round game of Rock Paper Scissors!`;
+let PLAYER_WON = `You have beat the computer in a 5 round game of Rock, Paper, Scissors!`;
 let COMPUTER_WON = `You have lost to the computer in a 5 round game of Rock, Paper, Scissors! `;
 let TIE = `You both have a score of ${playerScore}, it's a TIE!`;
 
@@ -22,8 +22,25 @@ function computerPlay() {
 }
 
 function playerPlay() {
-  let playerChoice = prompt('Enter Rock, Paper, or Scissors');
-  playerChoice.toLowerCase();
+  //validate input
+  let isValid = false;
+  let playerChoice;
+  while (!isValid) {
+    playerChoice = prompt('Enter Rock, Paper, or Scissors').toLowerCase();
+    if (
+      playerChoice !== 'rock' &&
+      playerChoice !== 'paper' &&
+      playerChoice !== 'scissors'
+    ) {
+      playerChoice = prompt(
+        'Enter Rock, Paper, or Scissors. Spelling matters but it is not case sensitive'
+      );
+      playerChoice.toLowerCase();
+    } else {
+      isValid = true;
+    }
+  }
+
   return playerChoice;
 }
 
@@ -40,7 +57,7 @@ function playRound(playerSelection, computerSelection) {
     return ` ${playerSelection} beats ${computerSelection}, YOU WIN!`; //PLAYER_WIN;
   } else if (playerSelection === computerSelection) {
     tieCounter++;
-    return `you both ${playerSelection} chose ${computerSelection}. DRAW!`; //TIE_GAME;
+    return `you both chose ${computerSelection}. DRAW!`; //TIE_GAME;
   } else {
     computerScore++;
     return ` ${playerSelection} loses to ${computerSelection}. YOU LOSE`; //COMPUTER_WIN;
@@ -59,15 +76,17 @@ function game() {
   if (playerScore > computerScore) {
     return console.log(
       PLAYER_WON,
-      `Player: ${playerScore} to Computer: ${computerScore}, with ${tieCounter} ties`
+      `Player Score: ${playerScore} to Computer Score: ${computerScore}, with ${tieCounter} ties.`
     );
   } else if (computerScore > playerScore) {
     return console.log(
       COMPUTER_WON,
-      `Player: ${playerScore} to Computer: ${computerScore}, with ${tieCounter} ties`
+      `Player Score: ${playerScore} to Computer Score: ${computerScore}, with ${tieCounter} ties.`
     );
   } else {
-    return console.log(TIE);
+    return console.log(
+      `The game ended in a tie, you both had a score of ${playerScore}, there was ${tieCounter} ties.`
+    );
   }
 }
 
