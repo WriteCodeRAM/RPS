@@ -54,12 +54,14 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
     playerScore++;
+    playerScoreboard.innerText = playerScore;
     return (resultsDisplay.innerText = `${playerSelection} beats ${computerSelection}, YOU WIN!`); //PLAYER_WIN;
   } else if (playerSelection === computerSelection) {
     tieCounter++;
     return (resultsDisplay.innerText = `you both chose ${computerSelection}. DRAW!`); //TIE_GAME;
   } else {
     computerScore++;
+    computerScoreboard.innerText = computerScore;
     return (resultsDisplay.innerText = `${playerSelection} loses to ${computerSelection}. YOU LOSE`); //COMPUTER_WIN;
   }
 }
@@ -80,7 +82,7 @@ buttons.forEach((button) => {
   button.addEventListener('click', (e) => {
     let playerSelect = e.target.innerText.toLowerCase();
 
-    console.log(playRound(playerSelect, computerPlay()));
+    playRound(playerSelect, computerPlay());
   });
 });
 
@@ -88,4 +90,10 @@ buttons.forEach((button) => {
 //display results outside of the console
 const resultsDisplay = document.querySelector('.resultsDisplay');
 
-resultsDisplay.innerText = 'This is a simple test';
+//display score
+const playerScoreboard = document.querySelector('.playerScore');
+const computerScoreboard = document.querySelector('.computerScore');
+
+//failed
+// playerScoreboard.append(playerScore);
+// computerScoreboard.append(computerScore);
