@@ -54,13 +54,13 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
     playerScore++;
-    return ` ${playerSelection} beats ${computerSelection}, YOU WIN!`; //PLAYER_WIN;
+    return (resultsDisplay.innerText = `${playerSelection} beats ${computerSelection}, YOU WIN!`); //PLAYER_WIN;
   } else if (playerSelection === computerSelection) {
     tieCounter++;
-    return `you both chose ${computerSelection}. DRAW!`; //TIE_GAME;
+    return (resultsDisplay.innerText = `you both chose ${computerSelection}. DRAW!`); //TIE_GAME;
   } else {
     computerScore++;
-    return ` ${playerSelection} loses to ${computerSelection}. YOU LOSE`; //COMPUTER_WIN;
+    return (resultsDisplay.innerText = `${playerSelection} loses to ${computerSelection}. YOU LOSE`); //COMPUTER_WIN;
   }
 }
 
@@ -71,14 +71,10 @@ const buttons = document.querySelectorAll('button');
 const btnHolder = document.querySelector('.button-holder'); // div holding btns
 
 // add an event listener that selects 'rock' if the player clicks rock and so on..
+//learn foreach
+//apply logic to all buttons (CHECK)
 
 const rockBtn = document.querySelector('.rock');
-
-// rockBtn.addEventListener('click', (e) => {
-//   let playerSelect = e.target.innerText;
-
-//   console.log(playRound(playerSelect, computerPlay()));
-// });
 
 buttons.forEach((button) => {
   button.addEventListener('click', (e) => {
@@ -88,11 +84,8 @@ buttons.forEach((button) => {
   });
 });
 
-//learn foreach
-//apply logic to all buttons
+//HMMMM
 //display results outside of the console
+const resultsDisplay = document.querySelector('.resultsDisplay');
 
-//struggling but i feel like if I could simply make the button inner text or textContent be the playerSelection parameter
-//then this wouldnt be so bad after all
-//but the eventListener isnt cooperating w/ playRound() so...
-//we try tmm
+resultsDisplay.innerText = 'This is a simple test';
