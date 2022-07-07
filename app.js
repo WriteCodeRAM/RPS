@@ -48,22 +48,36 @@ function playerPlay() {
 // then calling both in a 'game' function and compare the results
 
 function playRound(playerSelection, computerSelection) {
-  if (
-    (playerSelection === 'rock' && computerSelection === 'scissors') ||
-    (playerSelection === 'paper' && computerSelection === 'rock') ||
-    (playerSelection === 'scissors' && computerSelection === 'paper')
-  ) {
-    playerScore++;
-    playerScoreboard.innerText = playerScore;
-    return (resultsDisplay.innerText = `${playerSelection} beats ${computerSelection}, YOU WIN!`); //PLAYER_WIN;
-  } else if (playerSelection === computerSelection) {
-    tieCounter++;
-    tieScoreboard.innerText = tieCounter;
-    return (resultsDisplay.innerText = `you both chose ${computerSelection}. DRAW!`); //TIE_GAME;
-  } else {
-    computerScore++;
-    computerScoreboard.innerText = computerScore;
-    return (resultsDisplay.innerText = `${playerSelection} loses to ${computerSelection}. YOU LOSE`); //COMPUTER_WIN;
+  computerSelection = computerPlay();
+
+  while (playerScore < 5 && computerScore < 5) {
+    if (
+      (playerSelection === 'rock' && computerSelection === 'scissors') ||
+      (playerSelection === 'paper' && computerSelection === 'rock') ||
+      (playerSelection === 'scissors' && computerSelection === 'paper')
+    ) {
+      playerScore++;
+      playerScoreboard.innerText = playerScore;
+      if (playerScore === 5) {
+        resultsDisplay.innerText = PLAYER_WON;
+        disableButtons();
+        return;
+      }
+      return (resultsDisplay.innerText = `${playerSelection} beats ${computerSelection}, YOU WIN!`); //PLAYER_WIN;
+    } else if (playerSelection === computerSelection) {
+      tieCounter++;
+      tieScoreboard.innerText = tieCounter;
+      return (resultsDisplay.innerText = `you both chose ${computerSelection}. DRAW!`); //TIE_GAME;
+    } else {
+      computerScore++;
+      computerScoreboard.innerText = computerScore;
+      if (computerScore === 5) {
+        resultsDisplay.innerText = COMPUTER_WON;
+        disableButtons();
+        return;
+      }
+      return (resultsDisplay.innerText = `${playerSelection} loses to ${computerSelection}. YOU LOSE`); //COMPUTER_WIN;
+    }
   }
 }
 
@@ -79,13 +93,15 @@ const btnHolder = document.querySelector('.button-holder'); // div holding btns
 
 const rockBtn = document.querySelector('.rock');
 
-buttons.forEach((button) => {
-  button.addEventListener('click', (e) => {
-    let playerSelect = e.target.innerText.toLowerCase();
+// buttons.forEach((button) => {
+//   button.addEventListener('click', (e) => {
+//     let playerSelect = e.target.innerText.toLowerCase();
 
-    playRound(playerSelect, computerPlay());
-  });
-});
+//     while (playerScore < 5 && computerScore < 5) {
+//       playRound(playerSelect, computerPlay());
+//     }
+//   });
+// });
 
 //HMMMM
 //display results outside of the console
@@ -99,3 +115,17 @@ const tieScoreboard = document.querySelector('.tieScore');
 //failed
 // playerScoreboard.append(playerScore);
 // computerScoreboard.append(computerScore);
+
+//game ends when player or cpu reaches score of 5
+
+buttons.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    playRound(e.target.innerText.toLowerCase());
+  });
+});
+
+function disableButtons() {
+  buttons.forEach((button) => {
+    button.disabled = true;
+  });
+}
