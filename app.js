@@ -58,6 +58,7 @@ function playRound(playerSelection, computerSelection) {
     return (resultsDisplay.innerText = `${playerSelection} beats ${computerSelection}, YOU WIN!`); //PLAYER_WIN;
   } else if (playerSelection === computerSelection) {
     tieCounter++;
+    tieScoreboard.innerText = tieCounter;
     return (resultsDisplay.innerText = `you both chose ${computerSelection}. DRAW!`); //TIE_GAME;
   } else {
     computerScore++;
@@ -93,6 +94,7 @@ const resultsDisplay = document.querySelector('.resultsDisplay');
 //display score
 const playerScoreboard = document.querySelector('.playerScore');
 const computerScoreboard = document.querySelector('.computerScore');
+const tieScoreboard = document.querySelector('.tieScore');
 
 //failed
 // playerScoreboard.append(playerScore);
