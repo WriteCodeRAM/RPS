@@ -64,30 +64,35 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function game() {
-  for (let i = 0; i < 5; i++) {
-    playerSelection = playerPlay();
-    computerSelection = computerPlay();
-    console.log(playRound(playerSelection, computerSelection));
+// console.log(playRound(playerPlay(), computerPlay()));
 
-    // make it so that after a single round results are stored'
-    console.log(playerScore, computerScore);
-  }
-  if (playerScore > computerScore) {
-    return console.log(
-      PLAYER_WON,
-      `Player Score: ${playerScore} to Computer Score: ${computerScore}, with ${tieCounter} ties.`
-    );
-  } else if (computerScore > playerScore) {
-    return console.log(
-      COMPUTER_WON,
-      `Player Score: ${playerScore} to Computer Score: ${computerScore}, with ${tieCounter} ties.`
-    );
-  } else {
-    return console.log(
-      `The game ended in a tie, you both had a score of ${playerScore}, there was ${tieCounter} ties.`
-    );
-  }
-}
+const buttons = document.querySelectorAll('button');
 
-game();
+const btnHolder = document.querySelector('.button-holder'); // div holding btns
+
+// add an event listener that selects 'rock' if the player clicks rock and so on..
+
+const rockBtn = document.querySelector('.rock');
+
+// rockBtn.addEventListener('click', (e) => {
+//   let playerSelect = e.target.innerText;
+
+//   console.log(playRound(playerSelect, computerPlay()));
+// });
+
+buttons.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    let playerSelect = e.target.innerText.toLowerCase();
+
+    console.log(playRound(playerSelect, computerPlay()));
+  });
+});
+
+//learn foreach
+//apply logic to all buttons
+//display results outside of the console
+
+//struggling but i feel like if I could simply make the button inner text or textContent be the playerSelection parameter
+//then this wouldnt be so bad after all
+//but the eventListener isnt cooperating w/ playRound() so...
+//we try tmm
